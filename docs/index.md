@@ -7,7 +7,6 @@
 - With the wide usage of Amazon S3 it is important to configure the right security positure to it and below are a couple of security configuration we should enable
   - Enable Https
   - Enable SSE-S3 Encryption
-  - Disable Public Acls
   - Configure S3 Block Public Access
   - Restrict Access To A S3 Vpc Endpoint
   - Use AWS Config Rules To Detect A Public Bucket
@@ -122,14 +121,12 @@
         <img src="images/image6.png" class="inline"/>
 
 
-  iii. Disable Public Acls
+  iii. Configure S3 Block Public Access
 
-  iv. Configure S3 Block Public Access
+  iv. Restrict Access To A S3 Vpc Endpoint
 
-  v. Restrict Access To A S3 Vpc Endpoint
+  v. Use AWS Config Rules To Detect A Public Bucket
 
-  vi. Use AWS Config Rules To Detect A Public Bucket
-
-  vii. Use Amazon Access Analyzer For S3 
+  vi. Use Amazon Access Analyzer For S3 
 
 
