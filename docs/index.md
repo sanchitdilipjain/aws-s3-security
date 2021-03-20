@@ -44,6 +44,7 @@
             ]
           }
      ```  
+     
      Replace BUCKET_NAME with the bucket name you copied to your text editor
 
      <img src="images/image1.png" class="inline"/>
@@ -54,9 +55,9 @@
         aws s3api head-object --key app1/file1 --endpoint-url http://s3.amazonaws.com --bucket ${bucket}
        ```
 
-     Output will return a 403 error as the endpoint-url is HTTP
+       Output will return a 403 error as the endpoint-url is HTTP
 
-     <img src="images/image2.png" class="inline"/>
+       <img src="images/image2.png" class="inline"/>
 
     7. Now run the following command
 
@@ -64,9 +65,9 @@
         aws s3api --endpoint-url https://s3.amazonaws.com head-object --key app1/file1 --bucket ${bucket}
        ```
 
-     As we are leveraging s3api which uses HTTPS output will be successful 
+       As we are leveraging s3api which uses HTTPS output will be successful 
 
-     <img src="images/image3.png" class="inline"/>
+       <img src="images/image3.png" class="inline"/>
 
 
   ii. Enable SSE-S3 Encryption
