@@ -44,8 +44,8 @@
             ]
           }
      ``` 
-     
-     Replace BUCKET_NAME with the bucket name you copied to your text editor
+      
+        Replace BUCKET_NAME with the bucket name you copied to your text editor
 
     6. Run the following command
 
