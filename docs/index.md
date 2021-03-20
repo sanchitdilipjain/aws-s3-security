@@ -68,7 +68,59 @@
         <img src="images/image3.png" class="inline"/>
 
 
-  ii. Enable SSE-S3 Encryption
+  **ii. Enable SSE-S3 Encryption**
+  
+  In this section we will create a S3 Bucket Policy that requires data at rest encryption
+   1. From the AWS console, click Services and select S3
+
+   2. Select the bucket name
+
+   3. Select on the Permissions tab
+
+   4. Under Bucket Policy click Edit
+
+   5. Copy the bucket policy below and paste into the Bucket Policy Editor and Select Save changes
+
+           {
+            "Statement": [
+                {
+                    "Effect": "Deny",
+                    "Principal": "*",
+                    "Action": "s3:PutObject",
+                    "Resource": "arn:aws:s3:::BUCKET_NAME/*",
+                    "Condition": {
+                        "StringNotEquals": {
+                            "s3:x-amz-server-side-encryption": "AES256"
+                        }
+                    }
+                }
+            ]
+           }
+
+        Replace BUCKET_NAME with the bucket name you copied to your text editor
+        
+        <img src="images/image4.png" class="inline"/>
+
+    6. Run the following command
+
+       ```markdown 
+        aws s3api put-object --key text01 --bucket ${bucket}  
+       ```
+
+        Request will fail, as the object is not encrypted.
+
+        <img src="images/image5.png" class="inline"/>
+
+    7. Now run the following command using SSE-S3 encryption
+
+       ```markdown 
+        aws s3api put-object --key text01 --server-side-encryption AES256 --bucket ${bucket} 
+       ```
+
+        Command succeeded as SSE-S3 is enabled
+
+        <img src="images/image6.png" class="inline"/>
+
 
   iii. Disable Public Acls
 
