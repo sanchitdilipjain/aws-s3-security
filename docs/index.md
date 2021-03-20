@@ -27,25 +27,25 @@
 
    5. Copy the bucket policy below and paste into the Bucket Policy Editor and Select Save changes
 
-     ```markdown
-         {
-          "Statement": [
-          {
-             "Action": "s3:*",
-             "Effect": "Deny",
-             "Principal": "*",
-             "Resource": "arn:aws:s3:::BUCKET_NAME/*",
-             "Condition": {
-                 "Bool": {
-                  "aws:SecureTransport": false
-                  }
-              }
-              }
-            ]
-          }
-     ``` 
+           {
+            "Statement": [
+            {
+               "Action": "s3:*",
+               "Effect": "Deny",
+               "Principal": "*",
+               "Resource": "arn:aws:s3:::BUCKET_NAME/*",
+               "Condition": {
+                   "Bool": {
+                    "aws:SecureTransport": false
+                    }
+                }
+                }
+              ]
+            }
       
         Replace BUCKET_NAME with the bucket name you copied to your text editor
+        
+        <img src="images/image1.png" class="inline"/>
 
     6. Run the following command
 
