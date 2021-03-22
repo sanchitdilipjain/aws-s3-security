@@ -232,12 +232,11 @@
      
    1. From the AWS console, click Services and select Config
    
-   2. Settings, leave the default selections and click Next..
+   2. Under Settings, leave the default selections and select Next
    
-   3. Rules, filter the rules by typing S3 in the search bar. Look for s3-bucket-public-read-prohibited and select the rule and Click Next.
+   3. Under Rules, select S3 service from the search bar. Look for s3-bucket-public-read-prohibited and select the rule and Click Next.
 
-   4. Review, confirm the settings and click Confirm.
+   4. Next Review, verify the settings and select Confirm
 
       <img src="images/image14.png" class="inline"/>
       
-      It will take a few minutes for the rule to run. You may need to refresh your page a few times. You should see the Config Dashboard. If not, select ‘Dashboard’  on the left.
