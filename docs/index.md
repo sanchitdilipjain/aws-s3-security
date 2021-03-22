@@ -10,8 +10,6 @@
   - Configure S3 Block Public Access
   - Restrict Access To A S3 Vpc Endpoint
   - Use AWS Config Rules To Detect A Public Bucket
-  - Use Amazon Access Analyzer For S3
-
 
   **i. Enable Https**
 
