@@ -2,9 +2,9 @@
 
 **Introduction**
 
-- Amazon S3 provides an optimal foundation because of its virtually unlimited scalability. You can seamlessly and nondisruptively increase storage from gigabytes to petabytes of content, paying only for what you use. Amazon S3 is designed to provide 99.999999999% durability. 
+- Amazon S3 provides an optimal foundation because of its virtually unlimited scalability. You can seamlessly and non-disruptively increase storage from gigabytes to petabytes of content, paying only for what you use. Amazon S3 is designed to provide 99.999999999% durability. 
 - It has scalable performance, ease-of-use features, and native encryption and access control capabilities. Amazon S3 integrates with a broad portfolio of AWS and third-party ISV data processing tools. 
-- With the wide usage of Amazon S3 it is important to configure the right security positure to it and below are a couple of security configuration we should enable
+- With the wide usage of Amazon S3 it is important to configure the right security posture to it and below are a couple of security configuration we should enable
   - Enable Https
   - Enable SSE-S3 Encryption
   - Configure S3 Block Public Access
@@ -15,9 +15,9 @@
 
   **i. Enable Https**
 
-  In this section we will create a S3 Bucket Policy that requires connections to use HTTPS
+  In this section, we will create an S3 Bucket Policy that requires connections to use HTTPS
   
-   1. From the AWS console, click Services and select S3
+   1. From the AWS console, click Services, and select S3
 
    2. Select the bucket name
 
@@ -25,7 +25,7 @@
 
    4. Under Bucket Policy click Edit
 
-   5. Copy the bucket policy below and paste into the Bucket Policy Editor and Select Save changes
+   5. Copy the bucket policy below and paste it into the Bucket Policy Editor and Select Save changes
 
            {
             "Statement": [
@@ -53,7 +53,7 @@
         aws s3api head-object --key app1/file1 --endpoint-url http://s3.amazonaws.com --bucket ${bucket}
        ```
 
-        Output will return a 403 error as the endpoint-url is HTTP
+        The output  will return a 403 error as the endpoint-url is HTTP
 
         <img src="images/image2.png" class="inline"/>
 
@@ -70,7 +70,7 @@
 
   **ii. Enable SSE-S3 Encryption**
   
-  In this section we will create a S3 Bucket Policy that requires data at rest encryption
+  In this section, we will create an S3 Bucket Policy that requires data at rest encryption
   
    1. From the AWS console, click Services and select S3
 
@@ -80,7 +80,7 @@
 
    4. Under Bucket Policy click Edit
 
-   5. Copy the bucket policy below and paste into the Bucket Policy Editor and Select Save changes
+   5. Copy the bucket policy below and paste it into the Bucket Policy Editor and Select Save changes
 
            {
             "Statement": [
@@ -108,7 +108,7 @@
         aws s3api put-object --key text01 --bucket ${bucket}  
        ```
 
-        Request will fail, as the object is not encrypted.
+        The request will fail, as the object is not encrypted.
 
         <img src="images/image5.png" class="inline"/>
 
@@ -125,7 +125,7 @@
 
   **iii. Configure S3 Block Public Access**
   
-  In this section we will enable S3 Block Public Access, a simpler method to block public access for S3 bucket
+  In this section, we will enable S3 Block Public Access, a simpler method to block public access for S3 bucket
   
    1. From the AWS console, click Services and select S3
 
@@ -147,7 +147,7 @@
         aws s3api put-object --key text01 --acl public-read --bucket ${bucket}  
        ```
 
-        Request will fail, as we are trying to access object with acl as public.
+        The request will fail, as we are trying to access the object with acl as public.
 
         <img src="images/image10.png" class="inline"/>
 
@@ -157,13 +157,13 @@
         aws s3api put-object --key text01 --bucket ${bucket} 
        ```
 
-        Command succeeded as the deafult for an object ACL is private.
+        Command succeeded as the default for an object ACL is private.
 
         <img src="images/image11.png" class="inline"/>
 
   **iv. Restrict Access To A S3 Vpc Endpoint**
   
-   In this section we will create a S3 Bucket which will be accessible only within a VPC by the AWS services deployed within that VPC by using a VPC Endpoint
+   In this section, we will create an S3 Bucket which will be accessible only within a VPC by the AWS services deployed within that VPC by using a VPC Endpoint
    
    1. From the AWS console, click Services and select VPC
 
@@ -177,7 +177,7 @@
    
         <img src="images/image13.png" class="inline"/>
   
-   5. Selecr Create endpoint, copy the VPC Endpoint ID to your text editor and Select Close
+   5. Select Create endpoint, copy the VPC Endpoint ID to your text editor, and Select Close
    
    6. From the AWS console, click Services and select S3
 
@@ -187,7 +187,7 @@
 
    9. Under Bucket Policy click Edit
 
-   10. Copy the bucket policy below and paste into the Bucket Policy Editor and Select Save changes
+   10. Copy the bucket policy below and paste it into the Bucket Policy Editor and Select Save changes
 
               {
               "Statement": [
@@ -214,7 +214,7 @@
         aws s3api head-object --key text01 --bucket ${bucket}   
        ```
 
-        Request will fail, as we are trying to access object from an external machine
+        The request will fail, as we are trying to access the object from an external machine
 
 
    12. Run the following command from a machine inside the VPC
@@ -223,18 +223,18 @@
         aws s3api head-object --key text01 --bucket ${bucket} 
        ```
 
-        Command succeeded as the host is part of VPC which is allowed to access S3 object
+        Command succeeded as the host is part of VPC which is allowed to access the S3 object
      
 
   **v. Use AWS Config Rules To Detect A Public Bucket**
   
-  In this section we will focus on enabling AWS Config which acts a detective measure to ensure the right sets of permission are configured for AWS S3 bucket
+  In this section, we will focus on enabling AWS Config which acts as a detective measure to ensure the right sets of permission are configured for the AWS S3 bucket
      
-   1. From the AWS console, click Services and select Config
+   1. From the AWS console, click Services, and select Config
    
    2. Under Settings, leave the default selections and select Next
    
-   3. Under Rules, select S3 service from the search bar. Look for s3-bucket-public-read-prohibited and select the rule and Click Next.
+   3. Under Rules, select S3 service from the search bar. Look for s3-bucket-public-read-prohibited and select the rule and click Next.
 
    4. Next Review, verify the settings and select Confirm
 
