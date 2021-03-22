@@ -16,6 +16,7 @@
   **i. Enable Https**
 
   In this section we will create a S3 Bucket Policy that requires connections to use HTTPS
+  
    1. From the AWS console, click Services and select S3
 
    2. Select the bucket name
@@ -70,6 +71,7 @@
   **ii. Enable SSE-S3 Encryption**
   
   In this section we will create a S3 Bucket Policy that requires data at rest encryption
+  
    1. From the AWS console, click Services and select S3
 
    2. Select the bucket name
@@ -124,6 +126,7 @@
   **iii. Configure S3 Block Public Access**
   
   In this section we will enable S3 Block Public Access, a simpler method to block public access for S3 bucket
+  
    1. From the AWS console, click Services and select S3
 
    2. Select Block public access from left panel and click Edit.
@@ -158,10 +161,83 @@
 
         <img src="images/image11.png" class="inline"/>
 
-  iv. Restrict Access To A S3 Vpc Endpoint
+  **iv. Restrict Access To A S3 Vpc Endpoint**
+  
+   In this section we will create a S3 Bucket which will be accessible only within a VPC by the AWS services deployed within that VPC by using a VPC Endpoint
+   
+   1. From the AWS console, click Services and select VPC
 
-  v. Use AWS Config Rules To Detect A Public Bucket
+   2. Select Endpoints on the column to the left.
 
-  vi. Use Amazon Access Analyzer For S3 
+   3. Select S3 from the search option. This should filter to the S3 Endpoint. Select the Gateway endpoint.
+   
+        <img src="images/image12.png" class="inline"/>
+
+   4. Under VPC, select the VPC you want and from the drop-down select Route Table ID you want to associate
+   
+        <img src="images/image13.png" class="inline"/>
+  
+   5. Selecr Create endpoint, copy the VPC Endpoint ID to your text editor and Select Close
+   
+   6. From the AWS console, click Services and select S3
+
+   7. Select the bucket name
+
+   8. Select on the Permissions tab
+
+   9. Under Bucket Policy click Edit
+
+   10. Copy the bucket policy below and paste into the Bucket Policy Editor and Select Save changes
+
+              {
+              "Statement": [
+                  {
+                      "Action": "s3:*",
+                      "Effect": "Deny",
+                      "Resource": "arn:aws:s3:::BUCKET_NAME/*",
+                      "Condition": {
+                          "StringNotEquals": {
+                              "aws:sourceVpce": "VPC_ENDPOINT_ID"
+                          }
+                      },
+                      "Principal": "*"
+                      }
+                  ]
+              }
+
+      
+          Replace BUCKET_NAME with the bucket name and VPC_ENDPOINT_ID with the Endpoint ID
+        
+   11. Run the following command from a machine outside the VPC
+
+       ```markdown 
+        aws s3api head-object --key text01 --bucket ${bucket}   
+       ```
+
+        Request will fail, as we are trying to access object from an external machine
 
 
+   12. Run the following command from a machine inside the VPC
+
+       ```markdown 
+        aws s3api head-object --key text01 --bucket ${bucket} 
+       ```
+
+        Command succeeded as the host is part of VPC which is allowed to access S3 object
+     
+
+  **v. Use AWS Config Rules To Detect A Public Bucket**
+  
+  In this section we will focus on enabling AWS Config which acts a detective measure to ensure the right sets of permission are configured for AWS S3 bucket
+     
+   1. From the AWS console, click Services and select Config
+   
+   2. Settings, leave the default selections and click Next..
+   
+   3. Rules, filter the rules by typing S3 in the search bar. Look for s3-bucket-public-read-prohibited and select the rule and Click Next.
+
+   4. Review, confirm the settings and click Confirm.
+
+      <img src="images/image14.png" class="inline"/>
+      
+      It will take a few minutes for the rule to run. You may need to refresh your page a few times. You should see the Config Dashboard. If not, select ‘Dashboard’  on the left.
