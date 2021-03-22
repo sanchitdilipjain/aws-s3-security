@@ -121,7 +121,42 @@
         <img src="images/image6.png" class="inline"/>
 
 
-  iii. Configure S3 Block Public Access
+  **iii. Configure S3 Block Public Access**
+  
+  In this section we will enable S3 Block Public Access, a simpler method to block public access for S3 bucket
+   1. From the AWS console, click Services and select S3
+
+   2. Select Block public access from left panel and click Edit.
+  
+      <img src="images/image7.png" class="inline"/>
+   
+   3. Select Block all public access
+
+      <img src="images/image8.png" class="inline"/>
+
+   4. Select Save changes and Type confirm to confirm the new settings then click Confirm
+
+      <img src="images/image9.png" class="inline"/>
+   
+   5. Run the following command
+
+       ```markdown 
+        aws s3api put-object --key text01 --acl public-read --bucket ${bucket}  
+       ```
+
+        Request will fail, as we are trying to access object with acl as public.
+
+        <img src="images/image10.png" class="inline"/>
+
+    6. Now run the following command using SSE-S3 encryption
+
+       ```markdown 
+        aws s3api put-object --key text01 --bucket ${bucket} 
+       ```
+
+        Command succeeded as the deafult for an object ACL is private.
+
+        <img src="images/image11.png" class="inline"/>
 
   iv. Restrict Access To A S3 Vpc Endpoint
 
